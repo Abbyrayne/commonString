@@ -1,0 +1,59 @@
+import java.util.Scanner;
+import java.util.Arrays; //imported this to make splitting and sorting arrays easier
+public class App {
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What is your String?");
+        String sort = scanner.nextLine();
+        int count = 1;
+        int hcount = 1; // this int keeps count of the most common String (highest count)
+        String hicount = ""; //This String will equal the string that occurs the most (highest count)
+        sort = sort.toLowerCase(); //makes all letters in String lowercase
+        String[] sorted = splitArr(sort); //splits array
+        for(int i = 0; i < sorted.length-1; i++)
+       { 
+         
+        if(sorted[i].equals(sorted[i+1])) //runs if two strings are the same
+        {
+             System.out.println(sorted[i] + " " + count);
+             
+             if(hcount <= count) // to keep track of the most common string. Without equal sign there is an OBOB
+             {
+             hicount = sorted[i]; //sets hcount to the most common string
+             hcount+=1; //hcount only increases if it is greater than or equal to count
+             }
+        }
+          else
+          {
+              
+              System.out.println(sorted[i] + " " + count);
+            count = 0; //count sets to zero because strings are not equal
+          }
+          
+          count +=1;
+        
+        }
+        if(sorted[sorted.length-2].equals(sorted[sorted.length-1])) //statement solves OBOB
+        {
+    
+            System.out.println(sorted[sorted.length-1] + " " + count); // can not use -2 or it causes a bug
+        }
+        else
+        {
+          System.out.println(sorted[sorted.length-1] + " " + count);
+        }
+
+       common(count, hcount,hicount); // does the method common here
+    }
+    private static String[] splitArr(String sort)
+    {
+    String[] sorted = sort.split(" "); //splits by space
+    Arrays.sort(sorted); //sorts arrays
+    return sorted;
+    }
+
+    private static void common(int count, int hcount, String hicount) //made void because it returns string
+    {
+             System.out.print(hicount + " occurs " + hcount + " times and is the most common"); //outputs the most common string
+    }
+}
